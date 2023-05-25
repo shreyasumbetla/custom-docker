@@ -137,8 +137,3 @@ RUN $PIP3I timm tensorboardX blobfile gpustat torchinfo fairseq==0.10.0 click ei
 
 
 RUN mkdir -p /hooks
-COPY startup.sh /hooks/startup.sh
-COPY stop.sh /hooks/stop.sh
-
-RUN chmod a+x /hooks/startup.sh
-RUN chmod a+x /hooks/stop.sh
