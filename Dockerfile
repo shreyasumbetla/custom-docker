@@ -98,8 +98,6 @@ ENV PATH=/root/.local/bin:$PATH
 RUN /opt/conda/bin/python -m pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 \
         torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
 
-COPY dependencies/nerfstudio /opt/nerfstudio
-
 # COPY dependencies/nerfstudio /home/hyperlight/nerfstudio
 # USER root
 # RUN chown -R user:user /home/hyperlight/nerfstudio
@@ -112,10 +110,8 @@ ENV CMAKE_CUDA_ARCHITECTURES=${CUDA_COMPUTE}
 
 # Install required libraries
 RUN /opt/conda/bin/python -m pip --no-cache-dir install git+https://github.com/NVlabs/tiny-cuda-nn.git#subdirectory=bindings/torch \
-    && /opt/conda/bin/python -m pip install --upgrade pip setuptools \
-    && cd /opt/nerfstudio && /opt/conda/bin/python -m pip install -e . \
-    && /opt/conda/bin/conda clean -ya
-
+    && /opt/conda/bin/python -m pip install --upgrade pip setuptools
+    
 RUN /opt/conda/bin/python -m pip --no-cache-dir install cmake==${CMAKE_VERSION} \
     opencv-python==${OPENCV_VERSION} opencv-contrib-python==${OPENCV_VERSION} \
     aiohttp==3.8.1 aiortc==1.3.2 appdirs>=1.4 av==9.2.0 tyro>=0.3.31 gdown==4.5.1 \
