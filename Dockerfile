@@ -1,7 +1,7 @@
 # Build: sudo docker build -t hyperlight .
 # Run: sudo docker run -v $(pwd):/host --gpus all -it --rm hyperlight
 
-FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.4.0-base-ubuntu20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -104,7 +104,7 @@ RUN /opt/conda/bin/python -m pip install torch==1.12.1+cu113 torchvision==0.13.1
 # USER 1000:1000
 
 # Specify cuda compute
-ARG CUDA_COMPUTE=75
+ARG CUDA_COMPUTE=61
 ENV TCNN_CUDA_ARCHITECTURES=${CUDA_COMPUTE}
 ENV CMAKE_CUDA_ARCHITECTURES=${CUDA_COMPUTE}
 
@@ -138,8 +138,8 @@ WORKDIR ~
 # Install ninja 
 RUN /opt/conda/bin/python -m pip install ninja
 
-RUN echo "Cloning threestudio and installing requirements ..." \
-	&& git clone https://github.com/threestudio-project/threestudio.git \
-	&& cd ./threestudio \
-	&& pip install -r requirements.txt
+# RUN echo "Cloning threestudio and installing requirements ..." \
+# 	&& git clone https://github.com/threestudio-project/threestudio.git \
+# 	&& cd ./threestudio \
+# 	&& pip install -r requirements.txt
 	
