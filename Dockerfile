@@ -124,7 +124,7 @@ RUN /opt/conda/bin/python -m pip --no-cache-dir install cmake==${CMAKE_VERSION} 
     pytorch-lightning torchmetrics kornia scipy scikit-image \
     && /opt/conda/bin/conda install -y ffmpeg=4.2.2 mpi4py \
     && /opt/conda/bin/conda clean -ya
-
+	
 WORKDIR /
 
 ENV PIP3I="python3 -m pip install  --upgrade "
@@ -133,3 +133,13 @@ RUN $PIP3I timm tensorboardX blobfile gpustat torchinfo fairseq==0.10.0 click ei
 
 
 RUN mkdir -p /hooks
+
+WORKDIR ~
+# Install ninja 
+RUN /opt/conda/bin/python -m pip install ninja
+
+RUN echo "Cloning threestudio and installing requirements ..." \
+	&& git clone https://github.com/threestudio-project/threestudio.git \
+	&& cd ./threestudio \
+	&& pip install -r requirements.txt
+	
