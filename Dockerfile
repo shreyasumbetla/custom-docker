@@ -136,7 +136,7 @@ RUN $PIP3I timm tensorboardX blobfile gpustat torchinfo fairseq==0.10.0 click ei
 RUN mkdir -p /hooks
 
 # Added removal of cuda-compat package 
-RUN apt remove cuda-compat-11-3
+RUN apt remove -y cuda-compat-11-3
 
 # WORKDIR ~
 # # Install ninja 
